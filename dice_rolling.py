@@ -98,10 +98,8 @@ def dice_printer(dice_amount, dice_types, rolls):
     return output
 
 
-dice_amount, dice_types = dice_parser('4d12 + 3d20 + 1d4 + 2d6 + 5d8 + 10d10')
-print(dice_amount, dice_types)
-rolls = throw_dice(dice_amount, dice_types)
-print(rolls)
-
-string = dice_printer(dice_amount, dice_types, rolls)
-print(string)
+def wrapper_dice(text):
+    dice_amount, dice_types = dice_parser(text)
+    rolls = throw_dice(dice_amount, dice_types)
+    string = dice_printer(dice_amount, dice_types, rolls)
+    return string
