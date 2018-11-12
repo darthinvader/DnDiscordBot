@@ -103,3 +103,9 @@ def wrapper_dice(text):
     rolls = throw_dice(dice_amount, dice_types)
     string = dice_printer(dice_amount, dice_types, rolls)
     return string
+
+
+def roll_initiative():
+    roll = randint(1, 20)
+    text = 'You rolled ' + str(roll) + ' for initiative.'
+    return text, roll
