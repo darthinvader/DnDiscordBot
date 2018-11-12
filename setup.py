@@ -51,5 +51,6 @@ setup(
     license='BSD License',
     author='Darthinvader',
     author_email='psaradakisj@gmail.com',
-    description='A DnD Discord Bot that will enhance the experience of playing DnD through Discord.'
+    description='A DnD Discord Bot that will enhance the experience of playing DnD through Discord.',
+    install_requires=['discord']
 )
