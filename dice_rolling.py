@@ -1,5 +1,6 @@
 from random import randint
 
+
 def dice_parser(text):
     """
     A basic dice parser that takes a string of the type:
@@ -15,7 +16,6 @@ def dice_parser(text):
             the amount of dice being rolled
         dice_types: list of ints
             the types of dices being rolled
-
     """
 
     text = text.upper()
@@ -44,6 +44,19 @@ def dice_parser(text):
 
 
 def throw_dice(dice_amount, dice_types):
+    """
+    Parameters:
+    -----
+        dice_amount: list of ints
+            contains the amount of dice for the designated dice type to roll
+        dice_types: list of ints
+            contains the dice types
+    Returns:
+    -----
+        rolls: list of tuples of ints
+            contains the results of the rolls
+    """
+
     rolls = list()
     for (d1, d2) in zip(dice_amount, dice_types):
 
@@ -55,18 +68,35 @@ def throw_dice(dice_amount, dice_types):
 
 
 def dice_printer(dice_amount, dice_types, rolls):
-    stringer = ''
+    """
+    Creates a nice string of the dice results in a nice manner
+    Parameters:
+    -----
+        dice_amount: list of ints
+            contains the amount of dice for the designated dice type to roll
+        dice_types: list of ints
+            contains the dice types
+        rolls: list of tuples of ints
+            contains the results of the rolls
+    Returns:
+    -----
+        output: string
+            is the string of the results of the dice
+    """
+
+    output = ''
     total_amount = 0
-    for da,dt,dr in zip(dice_amount, dice_types, rolls):
-        stringer += "For " + str(da) + "D" + str(dt) + " you rolled "
+    for da, dt, dr in zip(dice_amount, dice_types, rolls):
+        output += "For " + str(da) + "D" + str(dt) + " you rolled "
         amount = 0
         for roll in dr:
-            stringer += str(roll) + ", "
+            output += str(roll) + ", "
             amount += roll
             total_amount += roll
-        stringer += "total for these dice is " + str(amount) + ".\n"
-    stringer += "You rolled in total " + str(total_amount) + "."
-    return stringer
+        output += "total for these dice is " + str(amount) + ".\n"
+    output += "You rolled in total " + str(total_amount) + "."
+    return output
+
 
 dice_amount, dice_types = dice_parser('4d12 + 3d20 + 1d4 + 2d6 + 5d8 + 10d10')
 print(dice_amount, dice_types)
