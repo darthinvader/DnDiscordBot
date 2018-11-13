@@ -2,12 +2,14 @@ import discord
 from discord.ext import commands
 from dice_rolling import wrapper_dice_embed
 import dice_rolling as dr
+import dnd_system
 TOKEN = 'NTExMjIxOTA3NzgyMTA3MTM3.DsnwaA.PJRnQv_ITDKTSaFVYomio3gEUrI'
 
 client = commands.Bot(command_prefix='!', case_insensitive=True)
 client.remove_command('help')
+dnd_system = dnd_system.DnDSystem()
 
-music_player = None
+extensions = {'dnd_system'}
 
 @client.event
 async def on_ready():
@@ -73,11 +75,25 @@ async def toss_coin():
     await client.say(embed=embed)
 
 
-@client.command()
-async def init():
-    embed = dr.wrapper_init_embed()
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def init(context):
+    name = context.message.author.name
+    name_id = context.message.author
+    embed, dice_roll = dr.wrapper_init_embed()
+    message, code = dnd_system.set_player_initiative_name(name_id, str(name), dice_roll)
+    if code == 0:
+        await client.say(embed=embed)
+    await client.say(message)
 
+
+@client.command(pass_context=True)
+async def get_inits(context):
+    inits = str(dnd_system.get_all_initiatives())
+    await client.say(inits)
+
+@client.command(pass_context=True)
+async def clear_inits(context):
+    dnd_system.clear_inits()
 
 @client.command(pass_context=True)
 async def help(context):
@@ -99,7 +115,10 @@ async def leave(context):
             return await x.disconnect()
 
 
+
 """
+#music_player = None
+
 This code is best left to a server bot where i don't get to make it download the music from the local host
 @client.command(pass_context=True)
 async def play(context, url):
@@ -130,5 +149,4 @@ async def stop():
     music_player.stop()
 
 """
-
 client.run(TOKEN)

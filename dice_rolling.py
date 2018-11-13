@@ -125,4 +125,4 @@ def roll_initiative():
 def wrapper_init_embed():
     text, roll = roll_initiative()
     embed = ec.initiative_embed(roll)
-    return embed
+    return embed, roll
