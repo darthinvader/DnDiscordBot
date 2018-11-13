@@ -7,6 +7,7 @@ TOKEN = 'NTExMjIxOTA3NzgyMTA3MTM3.DsnwaA.PJRnQv_ITDKTSaFVYomio3gEUrI'
 client = commands.Bot(command_prefix='!', case_insensitive=True)
 client.remove_command('help')
 
+music_player = None
 
 @client.event
 async def on_ready():
@@ -83,5 +84,51 @@ async def help(context):
     channel = context.message.channel
     content = 'I\'m helping'
     await client.send_message(channel, content)
+
+
+@client.command(pass_context=True)
+async def join(context):
+    channel = context.message.author.voice.voice_channel
+    await client.join_voice_channel(channel)
+
+
+@client.command(pass_context=True)
+async def leave(context):
+    for x in client.voice_clients:
+        if x.server == context.message.server:
+            return await x.disconnect()
+
+
+"""
+This code is best left to a server bot where i don't get to make it download the music from the local host
+@client.command(pass_context=True)
+async def play(context, url):
+    global music_player
+
+    if music_player is not None:
+        print('what')
+        return
+    server = context.message.server
+    voice_client = client.voice_client_in(server)
+    player = await voice_client.create_ytdl_player(url)
+    music_player = player
+    player.start()
+
+@client.command()
+async def pause():
+    global music_player
+    music_player.pause()
+
+@client.command()
+async def resume():
+    global music_player
+    music_player.resume()
+
+@client.command()
+async def stop():
+    global music_player
+    music_player.stop()
+
+"""
 
 client.run(TOKEN)
