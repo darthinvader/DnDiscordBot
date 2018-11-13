@@ -1,4 +1,5 @@
 from random import randint
+import embed_creator as ec
 
 
 def dice_parser(text):
@@ -92,10 +93,21 @@ def dice_printer(dice_amount, dice_types, rolls):
         for roll in dr:
             output += str(roll) + ", "
             amount += roll
-            total_amount += roll
+        total_amount += amount
         output += "total for these dice is " + str(amount) + ".\n"
     output += "You rolled in total " + str(total_amount) + "."
     return output
+
+
+def wrapper_roll(text):
+    dice_amount, dice_types = dice_parser(text)
+    rolls = throw_dice(dice_amount, dice_types)
+    return dice_amount, dice_types, rolls
+
+
+def wrapper_dice_embed(text):
+    dice_amount, dice_types, rolls = wrapper_roll(text)
+    return ec.dice_roll_embed(dice_amount, dice_types, rolls)
 
 
 def wrapper_dice(text):
@@ -109,3 +121,8 @@ def roll_initiative():
     roll = randint(1, 20)
     text = 'You rolled ' + str(roll) + ' for initiative.'
     return text, roll
+
+def wrapper_init_embed():
+    text, roll = roll_initiative()
+    embed = ec.initiative_embed(roll)
+    return embed

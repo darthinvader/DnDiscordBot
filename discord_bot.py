@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-from dice_rolling import wrapper_dice, roll_initiative
+from dice_rolling import wrapper_dice_embed
+import dice_rolling as dr
 TOKEN = 'NTExMjIxOTA3NzgyMTA3MTM3.DsnwaA.PJRnQv_ITDKTSaFVYomio3gEUrI'
 
 client = commands.Bot(command_prefix='!', case_insensitive=True)
@@ -12,78 +13,69 @@ async def on_ready():
     print('I\'m Ready')
 
 
-@client.command(pass_context=True)
-async def roll(context, *dices):
+@client.command()
+async def roll(*dices):
     print(dices)
     dice = ''
     for d in dices:
         dice += d
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d20(context):
+@client.command()
+async def d20():
     dice = '1d20'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d12(context):
+@client.command()
+async def d12():
     dice = '1d12'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d10(context):
+@client.command()
+async def d10():
     dice = '1d10'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d8(context):
+@client.command()
+async def d8():
     dice = '1d8'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d6(context):
+@client.command()
+async def d6():
     dice = '1d6'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def d4(context):
+@client.command()
+async def d4():
     dice = '1d4'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def toss_coin(context):
+@client.command()
+async def toss_coin():
     dice = '1d2'
-    channel = context.message.channel
-    content = wrapper_dice(dice)
-    await client.send_message(channel, content)
+    embed = wrapper_dice_embed(dice)
+    await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
-async def init(context):
-    channel = context.message.channel
-    content, dice = roll_initiative()
-    await client.send_message(channel, content)
+@client.command()
+async def init():
+    embed = dr.wrapper_init_embed()
+    await client.say(embed=embed)
 
 
 @client.command(pass_context=True)
@@ -91,6 +83,5 @@ async def help(context):
     channel = context.message.channel
     content = 'I\'m helping'
     await client.send_message(channel, content)
-
 
 client.run(TOKEN)
