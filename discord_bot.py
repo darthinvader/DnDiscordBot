@@ -96,8 +96,8 @@ async def monster_init(monster_name):
 
 @client.command(pass_context=True)
 async def get_inits(context):
-    inits = str(dnd_system.get_all_initiatives_in_order_embed())
-    await client.say(inits)
+    embed = dnd_system.get_all_initiatives_in_order_embed()
+    await client.say(embed=embed)
 
 
 @client.command(pass_context=True)

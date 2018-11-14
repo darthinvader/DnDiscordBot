@@ -23,7 +23,7 @@ def initiative_embed(roll):
 
 
 def initiative_sorted_embed(initiatives):
-    embed = discord.Embed(title='Initiative Rolls', colour =0x000000)
+    embed = discord.Embed(title='Initiative Rolls', colour=0x000000)
     for i in initiatives:
         embed.add_field(name=i[0] + ' rolled:', value=str(i[1]))
     return embed

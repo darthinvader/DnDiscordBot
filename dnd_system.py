@@ -39,7 +39,8 @@ class DnDSystem:
     def get_all_initiatives_in_order_embed(self):
         inits = self.get_all_initiatives()
         sort_inits = sorted(inits, key=lambda x: x[1], reverse=True)
-        return sort_inits
+        embed = ec.initiative_sorted_embed(sort_inits)
+        return embed
 
 
     def make_inits_embeds(self, inits):
