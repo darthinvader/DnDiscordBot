@@ -3,6 +3,7 @@ from discord.ext import commands
 from dice_rolling import wrapper_dice_embed
 import dice_rolling as dr
 import dnd_system
+
 TOKEN = 'NTExMjIxOTA3NzgyMTA3MTM3.DsnwaA.PJRnQv_ITDKTSaFVYomio3gEUrI'
 
 client = commands.Bot(command_prefix='!', case_insensitive=True)
@@ -86,14 +87,25 @@ async def init(context):
     await client.say(message)
 
 
+@client.command()
+async def monster_init(monster_name):
+    embed, dice_roll = dr.wrapper_init_embed()
+    dnd_system.set_monster_initiative(monster_name, dice_roll)
+    await client.say(embed=embed)
+
+
 @client.command(pass_context=True)
 async def get_inits(context):
-    inits = str(dnd_system.get_all_initiatives())
+    inits = str(dnd_system.get_all_initiatives_in_order_embed())
     await client.say(inits)
+
 
 @client.command(pass_context=True)
 async def clear_inits(context):
     dnd_system.clear_inits()
+    await client.say('Cleared Initiatives')
+
+
 
 @client.command(pass_context=True)
 async def help(context):

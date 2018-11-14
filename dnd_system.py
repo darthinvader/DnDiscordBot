@@ -1,5 +1,6 @@
 import dnd_player
 import dnd_monster
+import embed_creator as ec
 
 class DnDSystem:
     def __init__(self):
@@ -35,8 +36,10 @@ class DnDSystem:
             inits.append((monster.get_name(), monster.get_initiative()))
         return inits
 
-    def get_all_initiatives_in_order(self):
-
+    def get_all_initiatives_in_order_embed(self):
+        inits = self.get_all_initiatives()
+        sort_inits = sorted(inits, key=lambda x: x[1], reverse=True)
+        return sort_inits
 
 
     def make_inits_embeds(self, inits):
